@@ -1,0 +1,184 @@
+from sys import exit
+
+print("Welcome dear adventurer to Ancient Adventure!!! ")
+print("Game controls-\n1)Press enter to navigate\n2)Your input is case sensitive\n3)Type 'attack' to attack the enemy\n4)Type 'flee' to escape.")
+input()
+print("To complete the game you need to find the treasure hidden in a room.")
+input()
+print("To get to the treasure you will have to defeat monsters and clear the rooms.")
+input()
+print("you will get the choice of two weapons, choose wisely as monsters can only be defeated with specific weapons.")
+input()
+print("Let's begin!!!")
+print("What should we call you adventurer?")
+player_name = input("Please input player name> ")
+health = 5
+print(f"Hi {player_name} your health is {health}, when your health reaches 0 you won't be able to continue.")
+input()
+print(f"{player_name} please choose a weapon of your choice")
+print("1. Axe")
+print("2. Sword")
+weapon = input("Please choose> ")
+while True:
+    if weapon == "Axe" or weapon == "Sword":
+        print("Good choice")
+        break
+    else:
+        print("Please choose either 'Axe' or 'Sword'!")
+        weapon = input("Please choose> ")
+
+print("Ok you are all set!")
+
+def Real_Treasure_room():
+    print("After sloving all the riddles and defeating the monsters you have reached the real treasure room.")
+    input()
+    print(f"Congratulations!!! {player_name} you have found the treasure box with loads of gold.")
+    input()
+    if health > 4:
+        print("You have completed the game without breaking any sweat.")
+    else:
+        print("You have overcome a lot of hardships and have sucessfully completed the game.")
+    print(f"Farewell {player_name}, untill the next update of this game.")
+    exit(0)
+def Treasure_Room():
+    if health != 0:
+        print("You enter the treasure room and find a closed treasure box.")
+        input()
+        print("You opne the box and find an old piece of paper that reads \n'Solve the riddle and find the treasure'.")
+        input()
+        print("Cannot be brought, cannot be sold even if it is made of gold.\nWhat is it?")
+        riddle = input("Please enter your answer> ")
+        while True:
+            if riddle == "heart":
+                print("Yes that is the correct answer...\nA hidden door opens.")
+                Real_Treasure_room()
+                break
+            elif riddle == "love":
+                print("You are very close...\nA hint: it is a vital organ.")
+                riddle = input("Please enter your answer> ")
+            elif riddle == "flee":
+                print("You escape.")
+                start()
+                break
+            else:
+                print("That's not the correct answer try again.")
+                riddle = input("Please enter your answer> ")
+    else:
+        dead("You are too injured to continue.")
+
+def Dragon_Room():
+    health = 5
+    if health != 0:
+        print("You enter a room and find a dragon.")
+        input()
+        print("The dragon is looking very angry and is preparing to attack you.")
+        input()
+        print("what do you do?")
+        choice = input("> ")
+        while True:
+            if health !=0 and weapon == "Sword" and choice == "attack":
+                print("You slay the dragon with the Sword")
+                print("There is another room behind.")
+                Treasure_Room()
+            elif choice == "flee":
+                print("You escape.")
+                start()
+            elif health !=0 and weapon != "Sword" and choice == "attack":
+                print("You cannot slay the dragon without the Sword")
+                print ("The dragon attacks!!!")
+                health -= 1
+                print(f"Your health has decreased to {health}.")
+                choice = input("> ")
+            elif health !=0 and weapon != "Sword" and choice != "attack":
+                print("You cannot slay the dragon without the Sword")
+                print("The dragon attacks!!!")
+                health -= 1
+                print(f"Your health has decreased to {health}.")
+                choice = input("> ")
+            elif health !=0 and weapon == "Sword" and choice != "attack":
+                print("You must attack the dragon before it kills you.")
+                print("The dragon attacks!!!")
+                health -= 1
+                print(f"Your health has decreased to {health}.")
+                choice = input("> ")
+            
+            elif health == 0:
+                dead("You are too injured to continue.")
+    else:
+        dead("You are too injured to continue.")
+
+
+def Giant_Room():
+    health = 5
+    if health != 0:
+        print("You enter a room and find a giant.")
+        input()
+        print("The giant is blocking a door behind him")
+        input()
+        print("what do you do?")
+        choice = input("> ")
+        while True:
+            if health !=0 and weapon == "Axe" and choice == "attack":
+                print("You cut the giant's leg with the axe and he collapsed.")
+                print("There is another room behind.")
+                Treasure_Room()
+                break
+            elif health !=0 and weapon != "Axe" and choice == "attack":
+                print("You cannot harm the giant without the Axe")
+                print("The giant attacks!!!")
+                health -= 1
+                print(f"Your health has decreased to {health}.")
+            elif health !=0 and choice == "friend":
+                print("You befriend the giant.")
+                print("He shows you a secret door.")
+                Real_Treasure_room()
+                break
+            elif health !=0 and weapon == "Axe" and choice != "attack":
+                print("You must get rid of the giant before it kills you.")
+                print("The giant attacks!!!")
+                health -= 1
+                print(f"Your health has decreased to {health}.")
+            elif choice == "flee":
+                print("You escape.")
+                start()
+                break
+            elif health == 0:
+                dead("You are too injured to continue.")
+                break
+    else:
+        dead("You are too injured to continue.")
+
+
+def dead(why):
+    print(why," Game Over!!!")
+    exit(0)
+
+def start():
+    print("You are in a old room.")
+    print("There is a door to your right and left.")
+    print("Which one do you take?")
+    health = 5
+
+    choice = input("> ")
+    while True:
+        if choice == "left" or choice == "right":
+            print("Good choice")
+        else:
+            print("Please choose either 'left' or 'right'")
+            choice = input("> ")
+        if choice == "left":
+            Giant_Room()
+        elif choice == "right":
+            Dragon_Room()
+        else:
+            print("Please choose either 'left' or 'right'")
+            choice = input("> ")
+    return health
+
+start()
+    
+
+
+
+
+        
